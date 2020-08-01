@@ -70,14 +70,18 @@ public class ConfigParser {
      */
     //Splits config data into key value pair and save them to Map
     private void setConfigData(String str) {
+        System.out.println(str);
         String key;
         str = str.replaceAll("\\s", " ");
+        /*The regex splits the string into groups of key and value pair
+        *It further spits each group into two group, group1 = key and group2 = value
+         */
         Pattern pattern = Pattern.compile("((?:\\[\\w+\\]\\s)?\\w+(?:-?\\w+)*)=(\\/?(?:\\w+)(?:(?:\\/|-|\\.)?\\w)+)",
                 Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         while(matcher.find()){
             key = matcher.group(1);
-            //replace space in key with '.' and remove square brackets
+            //replace spaces in key with '.' and remove square brackets
             key = key.replaceAll("\\s", ".").replaceAll("(\\[|\\])", "");
             if (!config.containsKey(key)) {
                 config.put(key, matcher.group(2));
