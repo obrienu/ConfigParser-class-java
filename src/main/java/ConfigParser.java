@@ -12,6 +12,11 @@ public class ConfigParser {
     private String staging = "./src/main/java/config.txt.staging";
     private String development = "./src/main/java/config.txt.dev";
     private String name_of_file;
+    /*The regex splits the string into groups of key and value pair
+     *It further spits each group into two group, group1 = key and group2 = value
+     */
+    private Pattern pattern = Pattern.compile("((?:\\[\\w+\\]\\s)?\\w+(?:-?\\w+)*)=(\\/?(?:\\w+)(?:(?:\\/|-|\\.)?\\w)+)",
+            Pattern.CASE_INSENSITIVE);
 
     /**
      *
@@ -72,12 +77,7 @@ public class ConfigParser {
     private void setConfigData(String str) {
         System.out.println(str);
         String key;
-        str = str.replaceAll("\\s", " ");
-        /*The regex splits the string into groups of key and value pair
-        *It further spits each group into two group, group1 = key and group2 = value
-         */
-        Pattern pattern = Pattern.compile("((?:\\[\\w+\\]\\s)?\\w+(?:-?\\w+)*)=(\\/?(?:\\w+)(?:(?:\\/|-|\\.)?\\w)+)",
-                Pattern.CASE_INSENSITIVE);
+
         Matcher matcher = pattern.matcher(str);
         while(matcher.find()){
             key = matcher.group(1);
