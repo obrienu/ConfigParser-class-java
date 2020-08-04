@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -5,12 +6,21 @@ public class Main {
     
     public static void main(String[] args) {
         ConfigParser config = null;
+        String production = new File("./src/main/java/config.txt").exists() ? "./src/main/java/config.txt"
+                : "config.txt";
+        String staging = new File("./src/main/java/config-staging.txt").exists() ? "./src/main/java/config-staging.txt"
+                : "config-staging.txt";
+        String development = new File("./src/main/java/config-dev.txt").exists() ? "./src/main/java/config-dev.txt"
+                : "config-dev.txt";
+
         //instantiate config based on commandline argument
         if(args.length == 0) {
-            config = new ConfigParser();
-        }else if("staging".equals(args[0]) || "development".equals(args[0])){
-            config = new ConfigParser(args[0]);
-        } else{
+            config = new ConfigParser(production);
+        }else if("staging".equals(args[0])){
+            config = new ConfigParser(staging);
+        } else if("development".equals(args[0])){
+            config = new ConfigParser(development);
+        }else{
             System.out.println("Please enter a write argument. \n Argument can either be 'staging', 'development' or left empty.");
         }
 
