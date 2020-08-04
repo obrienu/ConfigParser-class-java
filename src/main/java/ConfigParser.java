@@ -3,8 +3,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ConfigParser {
     private Map<String, String> config = new HashMap<>();
@@ -22,18 +20,19 @@ public class ConfigParser {
      *
      * @return
      */
-    // Gets config data from config file and passes the data to setConfigData method
+    // Gets config data from config file a line at a time and passes the data to setConfigData method
     public void getConfigInput(String name_of_file) {
         Path path = Paths.get(name_of_file);
 
         try {
-            List<String> arr_of_onfigText = Files.readAllLines(path);
-            boolean isApplicationData = false;
-            for (String configText : arr_of_onfigText) {
-                if (configText.contains("application")) {
+            List<String> arr_of_configText = Files.readAllLines(path);
+
+            boolean isApplicationData = false; //to check if data in the line belongs to application data
+            for (String configText : arr_of_configText) {
+                if (configText.contains("application")) {// sets to true when it comes across application
                     isApplicationData = true;
                     continue;
-                } else if (configText.trim().equals("")) {
+                } else if (configText.trim().equals("")) {// resets back to false when it leaves application data
                     isApplicationData = false;
                     continue;
                 }
@@ -56,6 +55,7 @@ public class ConfigParser {
      * @param configKeyValuePair
      */
     //Splits config data into key value pair and save them to Map
+    //Appends "application." to all application data key -"application.name"
     private void setConfigData(String configKeyValuePair, boolean isApplicationData) {
         String[] arrOfKeyAndValue = configKeyValuePair.split("=");
         String key = isApplicationData ? "application." + arrOfKeyAndValue[0]
