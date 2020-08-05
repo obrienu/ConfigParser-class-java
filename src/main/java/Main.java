@@ -6,7 +6,7 @@ public class Main {
     
     public static void main(String[] args) {
         ConfigParser config = null;
-        //sets the relative path to the file based on if the  app is run from the command line or through the IDE
+        //sets the relative path to the file based on if the app is run from the command line or through the IDE
         String production = new File("./src/main/java/config.txt").exists() ? "./src/main/java/config.txt"
                 : "config.txt";
         String staging = new File("./src/main/java/config-staging.txt").exists() ? "./src/main/java/config-staging.txt"

@@ -15,13 +15,12 @@ public class ConfigParser {
         getConfigInput(name_of_file);
     }
 
-
     /**
      *
      * @return
      */
     // Gets config data from config file a line at a time and passes the data to setConfigData method
-    public void getConfigInput(String name_of_file) {
+    private void getConfigInput(String name_of_file) {
         Path path = Paths.get(name_of_file);
 
         try {
